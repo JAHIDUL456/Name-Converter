@@ -1,6 +1,6 @@
-# easybn
+# easybn — Bangla to English Name Converter
 
-Deterministic, zero-dependency, offline transliteration of Bangladeshi Bengali personal names into conventional English spellings.
+**Fast, deterministic, offline Bengali personal name transliteration for JavaScript, TypeScript, and Node.js.**
 
 [![npm version](https://img.shields.io/npm/v/easybn.svg?style=flat-square)](https://www.npmjs.com/package/easybn)
 [![npm downloads](https://img.shields.io/npm/dm/easybn.svg?style=flat-square)](https://www.npmjs.com/package/easybn)
@@ -10,18 +10,25 @@ Deterministic, zero-dependency, offline transliteration of Bangladeshi Bengali p
 
 ---
 
-`easybn` converts Bengali personal names—including NID-style honorifics, compound names, Arabic/Persian/Sanskrit loan spellings, and rural variants—into conventional Bangladeshi English spellings. It runs completely offline with deterministic output and is built for high-volume banking, fintech, insurance, KYC, and government data pipelines.
+`easybn` is a lightweight **Bangla to English name converter** built specifically for **Bangladeshi Bengali personal name transliteration** (বাংলা থেকে ইংরেজি নাম কনভার্টার). It converts Bengali names—including Bangladesh NID honorifics (`মোঃ`, `মোছাঃ`, `ডঃ`), compound names, Arabic/Persian/Sanskrit loan spellings, and rural variants—into conventional English spellings.
 
-This library performs **personal name transliteration**, never semantic translation (`নীল` becomes `Nil`, never `Blue`; `আকাশ` becomes `Akash`, never `Sky`).
+Designed for **banking, insurance, fintech, KYC onboarding, Bangladesh NID data processing, and bulk name conversion**, `easybn` runs 100% offline with zero runtime dependencies. It performs **personal name transliteration**, never semantic translation (`নীল` becomes `Nil`, never `Blue`; `আকাশ` becomes `Akash`, never `Sky`).
 
-## Features
+## Why easybn
 
-- **Zero runtime dependencies** — no AI/LLM models, external APIs, network requests, or databases.
-- **Deterministic & offline** — identical inputs always yield identical outputs inside your process.
-- **Hybrid 7-stage engine** — Unicode NFC/nukta normalization, NID abbreviation expansion, O(1) full/compound/token dictionaries, context-aware Bengali phonetic rules, and English formatting.
-- **High throughput** — separates hot-path conversion from detailed metadata; supports synchronous single, preallocated bulk, and lazy streaming APIs.
-- **TypeScript-first & dual module** — ships ESM, CommonJS, and strict `.d.ts` declarations (`41.6 kB` packed tarball).
-- **Character-safe** — unsupported characters and mixed scripts are preserved intact rather than silently dropped.
+Generic Unicode slugifiers and academic Indian-script romanizers focus on ASCII folding or diacritic schemes rather than Bangladeshi naming conventions, while phonetic IMEs convert Banglish typing into Bangla script. `easybn` is purpose-built for **Bangla-to-English personal name conversion** in Bangladesh:
+
+- **Bangladesh NID & KYC ready** — resolves standard local prefixes (`মোঃ` → `Md.`, `মোছাঃ` → `Mst.`, `ইঞ্জিঃ` → `Engr.`, `এ্যাডঃ` → `Adv.`) and returns alternative spellings plus review indicators via `convertDetailed()`.
+- **Enterprise-scale bulk name conversion** — synchronous single conversion, preallocated batch arrays (`convertBulk`), and bounded-memory streaming (`convertStream`) for millions of records daily.
+- **Deterministic & privacy-first** — identical inputs always produce identical outputs in process memory, with no AI models, external APIs, network requests, or data logging.
+
+## Key Features
+
+- **Zero runtime dependencies** — pure JavaScript/TypeScript with no external services, databases, or native addons.
+- **Hybrid 7-stage transliteration engine** — Unicode NFC/nukta normalization, NID abbreviation resolution, O(1) full/compound/token dictionaries, context-aware Bengali phonetic rules, and English formatting.
+- **JavaScript, TypeScript, ESM & CommonJS** — dual-module package with strict `.d.ts` declarations (`42.3 kB` packed tarball).
+- **Custom dictionary overrides** — layer organization-specific spellings (`Hossen` vs `Hossain`, `Shahin` vs `Shaheen`) without mutating global defaults.
+- **Character preservation** — unsupported characters and mixed Bengali–English inputs are preserved intact rather than silently discarded.
 
 ## Installation
 
@@ -47,7 +54,7 @@ convert("মোছাঃ খৈরুন্নেছা");    // "Mst. Khairunne
 convert("মৃত্যুঞ্জয় চক্রবর্তী"); // "Mrityunjay Chakraborty"
 ```
 
-## Usage
+## Usage Guide
 
 ### ESM, CommonJS, and TypeScript
 
@@ -58,7 +65,7 @@ import type { ConversionResult, ConverterOptions } from "easybn";
 ```
 
 ```js
-// CommonJS
+// CommonJS (Node.js)
 const { convert, convertBulk, convertDetailed, convertStream, createConverter } = require("easybn");
 ```
 
@@ -73,7 +80,7 @@ convert("খন্দকার মিজানুর রহমান"); // "Khan
 convert("নৃপেন্দ্র নাথ রায়");    // "Nripendra Nath Roy"
 ```
 
-### Bulk Conversion
+### Bulk Name Conversion
 
 Processes arrays synchronously using a preallocated output array while preserving exact input order:
 
@@ -92,7 +99,7 @@ const results = convertBulk(names);
 
 ### Streaming Conversion
 
-Lazily transforms any synchronous `Iterable<string>` or `AsyncIterable<string>` without buffering the full dataset in memory:
+Lazily transforms any synchronous `Iterable<string>` or `AsyncIterable<string>` without buffering the entire dataset in memory:
 
 ```ts
 import { convertStream } from "easybn";
@@ -108,9 +115,9 @@ for await (const englishName of convertStream(incomingRecords())) {
 }
 ```
 
-### Custom Dictionaries
+### Custom Dictionary Overrides
 
-Create isolated converter instances with organization-specific overrides without mutating global defaults. Base dictionary entries are layered rather than copied (`O(1)` lookup):
+Create isolated converter instances with organization-specific spellings without mutating global defaults. Base dictionary entries are layered rather than copied (`O(1)` lookup):
 
 ```ts
 import { createConverter } from "easybn";
@@ -138,11 +145,11 @@ converter.convert("মোঃ আব্দুর রহমান"); // "Mohammad 
 3. Base exact full-name dictionary (bypassed when custom overrides apply)
 4. Base longest-match compound dictionary (`157` entries, up to 3 words)
 5. Base token dictionary (`819` entries across given names, surnames, and exceptions)
-6. Context-aware deterministic phonetic engine
+6. Context-aware deterministic Bengali phonetic engine
 
-### Detailed Conversion (KYC & Review Workflows)
+### Detailed KYC & Review Metadata
 
-Use `convertDetailed()` when you need dictionary coverage, alternative conventional spellings, unsupported-character diagnostics, or human-review indicators:
+Use `convertDetailed()` in KYC, banking, and NID data-entry workflows when you need dictionary coverage, alternative conventional spellings, unsupported-character diagnostics, or human-review indicators:
 
 ```ts
 import { convertDetailed } from "easybn";
@@ -168,9 +175,11 @@ console.log(result);
 */
 ```
 
-## Bangladeshi Name Examples
+## Bangla to English Name Examples
 
-| Bengali Input | Converted Output | Notes |
+Conventional Bangladeshi English outputs (`বাংলা নাম → ইংরেজি বানান`):
+
+| Bengali Name | English Output | Linguistic / Domain Handling |
 | --- | --- | --- |
 | `নীল আকাশ` | `Nil Akash` | Transliterated, never translated |
 | `মোঃ আব্দুর রহমান` | `Md. Abdur Rahman` | NID abbreviation + compound |
@@ -185,7 +194,7 @@ console.log(result);
 | `ডঃ মুহাম্মদ ইউনুস` | `Dr. Muhammad Yunus` | Academic honorific |
 | `মোঃ Rahim` | `Md. Rahim` | Mixed Bengali–English preservation |
 
-## API Reference
+## Public API Reference
 
 ### Functions
 
@@ -264,4 +273,4 @@ npm run pack:verify     # Pack tarball and verify ESM, CJS, and TS consumer usag
 
 ## License
 
-[MIT](./LICENSE) — Copyright (c) 2026 [MD. JAHIDUL ISLAM](https://github.com/JAHIDUL456/Name-Converter) and `easybn` Contributors.
+[MIT](./LICENSE) — Copyright (c) 2026 [Md. Jahidul Islam](https://github.com/JAHIDUL456) and `easybn` Contributors.

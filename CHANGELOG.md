@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2026-11-25
+
+### Changed
+- Improved npm, GitHub, and search discoverability metadata (`description`, `keywords`, and `README.md` headings/use-case documentation) without modifying core transliteration logic or dependencies.
+
 ## [1.0.1] - 2026-11-25
 
 ### Changed
