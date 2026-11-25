@@ -1,6 +1,6 @@
 {
   "name": "easybn",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fast, zero-dependency, offline transliteration of Bangladeshi Bengali personal names into conventional English spellings.",
   "keywords": [
     "bengali",
@@ -19,7 +19,6 @@
     "zero-dependencies"
   ],
   "license": "MIT",
-  "author": "MD. JAHIDUL ISLAM <mdjahidulislam1n1@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JAHIDUL456/Name-Converter.git"
@@ -71,5 +70,9 @@
   "devDependencies": {
     "@types/node": "^26.6.7",
     "typescript": "^7.0.2"
+  },
+  "author": {
+    "name": "Md. Jahidul Islam",
+    "url": "https://github.com/JAHIDUL456"
   }
 }
