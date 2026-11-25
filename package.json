@@ -1,6 +1,6 @@
 {
-  "name": "bd-name",
-  "version": "1.0.0-beta.1",
+  "name": "easybn",
+  "version": "1.0.0",
   "description": "Deterministic, zero-dependency offline transliteration of Bangladeshi Bengali personal names into conventional English spellings",
   "keywords": [
     "bengali",
