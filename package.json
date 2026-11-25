@@ -1,0 +1,64 @@
+{
+  "name": "bd-name",
+  "version": "1.0.0-beta.1",
+  "description": "Deterministic, zero-dependency offline transliteration of Bangladeshi Bengali personal names into conventional English spellings",
+  "keywords": [
+    "bengali",
+    "bangla",
+    "bangladesh",
+    "name",
+    "transliteration",
+    "romanization",
+    "nid",
+    "kyc",
+    "fintech",
+    "unicode"
+  ],
+  "license": "MIT",
+  "author": "bd-name Contributors",
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dict:compile": "node scripts/compile-dictionary.mjs",
+    "dict:validate": "node scripts/compile-dictionary.mjs --check",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "test:only": "node --test tests/*.test.mjs",
+    "eval:accuracy": "npm run build && node benchmarks/accuracy-eval.mjs",
+    "bench": "npm run build && node benchmarks/run.mjs",
+    "pack:verify": "npm run build && node scripts/verify-package.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.7",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "bd-name-curated-starter",
+  "license": "MIT",
+  "provenance": "Curated open-source compilation of conventional Bangladeshi Bengali personal name, surname, compound, and NID-style honorific/abbreviation spellings created specifically for bd-name without any private NID records or personal datasets.",
+  "notes": [
+    "All entries represent widely used conventional English spellings in Bangladesh, not legally verified NID spellings.",
+    "Keys are normalized to Unicode NFC at compile time."
+  ]
+}
