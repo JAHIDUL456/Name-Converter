@@ -129,7 +129,7 @@ for (const item of entries) {
   }
 }
 
-console.log("=== bd-name Accuracy Evaluation Report ===");
+console.log("=== easybn Accuracy Evaluation Report ===");
 console.log(`Dataset:                 ${datasetName}`);
 console.log(
   `External Verification:   ${

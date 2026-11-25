@@ -181,7 +181,7 @@ async function benchStream10M() {
   );
 }
 
-console.log("=== bd-name Comprehensive Performance Benchmark ===");
+console.log("=== easybn Comprehensive Performance Benchmark ===");
 console.log(`Node: ${process.version} | Platform: ${process.platform}/${process.arch} | CPUs: ${os.cpus()[0]?.model ?? "unknown"} (${os.cpus().length} cores)`);
 
 const cold = measureColdStartup();

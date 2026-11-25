@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.0-beta.1] - 2026-11-25
+## [1.0.1] - 2026-11-25
+
+### Changed
+- Standardized package branding, npm metadata, repository links, documentation, and verification scripts under `easybn`.
+- Updated `README.md` with complete API documentation, ESM/CJS/TypeScript usage guides, complex name examples, and measured benchmark results.
+
+## [1.0.0] - 2026-11-25
 
 ### Added
 - Hybrid 7-stage deterministic Bangladeshi Bengali personal name transliteration engine (`convert`, `convertBulk`, `convertDetailed`, `convertStream`, `createConverter`).

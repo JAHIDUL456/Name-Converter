@@ -13,7 +13,7 @@ if (rootPkg.dependencies && Object.keys(rootPkg.dependencies).length > 0) {
   throw new Error("Package must have zero runtime dependencies");
 }
 
-const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "bd-name-verify-"));
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "easybn-verify-"));
 
 try {
   const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
@@ -48,7 +48,7 @@ try {
   fs.mkdirSync(consumerDir, { recursive: true });
   fs.writeFileSync(
     path.join(consumerDir, "package.json"),
-    JSON.stringify({ name: "bd-name-consumer-test", private: true, type: "module" }, null, 2),
+    JSON.stringify({ name: "easybn-consumer-test", private: true, type: "module" }, null, 2),
     "utf8"
   );
 
@@ -59,7 +59,7 @@ try {
   });
 
   // Verify browser-compatibility of unpacked dist/esm (no node:* imports, process, or Buffer)
-  const installedEsmDir = path.join(consumerDir, "node_modules", "bd-name", "dist", "esm");
+  const installedEsmDir = path.join(consumerDir, "node_modules", "easybn", "dist", "esm");
   const stack = [installedEsmDir];
   while (stack.length > 0) {
     const curr = stack.pop();
@@ -83,7 +83,7 @@ try {
       "--input-type=module",
       "-e",
       `import assert from "node:assert/strict";
-       import { convert, convertBulk, convertDetailed, convertStream, createConverter } from "bd-name";
+       import { convert, convertBulk, convertDetailed, convertStream, createConverter } from "easybn";
        assert.equal(convert("মোঃ আব্দুর রহমান"), "Md. Abdur Rahman");
        assert.deepEqual(convertBulk(["নীল", "আকাশ"]), ["Nil", "Akash"]);
        const det = convertDetailed("মোছাঃ খৈরুন্নেছা");
@@ -105,7 +105,7 @@ try {
     [
       "-e",
       `const assert = require("node:assert/strict");
-       const { convert, convertDetailed } = require("bd-name");
+       const { convert, convertDetailed } = require("easybn");
        assert.equal(convert("সৈয়দ গোলাম মাওলা"), "Syed Golam Mawla");
        assert.equal(convertDetailed("আকাশ").output, "Akash");
        console.log("CJS tarball verification passed");`
@@ -117,7 +117,7 @@ try {
   const tsConsumerFile = path.join(consumerDir, "type-check.ts");
   fs.writeFileSync(
     tsConsumerFile,
-    `import { convert, convertBulk, convertDetailed, convertStream, createConverter, type ConversionResult } from "bd-name";
+    `import { convert, convertBulk, convertDetailed, convertStream, createConverter, type ConversionResult } from "easybn";
      const a: string = convert("নীল");
      const b: string[] = convertBulk(["আকাশ"]);
      const c: ConversionResult = convertDetailed("আলো");

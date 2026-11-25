@@ -1,5 +1,5 @@
 {
-  "datasetName": "bd-name-unseen-linguistic-holdout",
+  "datasetName": "easybn-unseen-linguistic-holdout",
   "externalIndependentCorpus": false,
   "provenanceNote": "Internal unseen-token linguistic holdout fixture constructed for regression and zero-leakage evaluation. NOT an externally collected population corpus; external accuracy remains unverified until evaluated against an independent external dataset via --dataset.",
   "entries": [

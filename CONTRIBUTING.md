@@ -1,6 +1,6 @@
-# Contributing to bd-name
+# Contributing to easybn
 
-Thank you for contributing to `bd-name`!
+Thank you for contributing to `easybn`!
 
 ## Guidelines
 

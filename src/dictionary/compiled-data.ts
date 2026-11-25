@@ -15,7 +15,7 @@ export interface CompiledDictionaryMetadata {
 
 export const DICTIONARY_METADATA: CompiledDictionaryMetadata = {
   "version": "1.0.0",
-  "provenance": "Curated open-source compilation of conventional Bangladeshi Bengali personal name, surname, compound, and NID-style honorific/abbreviation spellings created specifically for bd-name without any private NID records or personal datasets.",
+  "provenance": "Curated open-source compilation of conventional Bangladeshi Bengali personal name, surname, compound, and NID-style honorific/abbreviation spellings created specifically for easybn without any private NID records or personal datasets.",
   "totalEntries": 1034,
   "abbreviations": 49,
   "fullNames": 9,
